@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.myapplication.Utils.Logger;
 import com.myapplication.R;
 import com.myapplication.admin.ui.AdminActivity;
+import com.myapplication.admin.ui.AdminTestFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             fragment = new SettingsFragment();
         } else if (id == R.id.nav_contact_us) {
-            fragment = new ContactUsFragment();
+            fragment = new AdminTestFragment();
         }
 
         getFragmentManager().beginTransaction().add(fragment, item.getTitle().toString()).addToBackStack(item.getTitle().toString()).commit();

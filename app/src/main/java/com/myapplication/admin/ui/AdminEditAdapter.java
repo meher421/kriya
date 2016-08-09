@@ -35,7 +35,7 @@ public class AdminEditAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mContext = context;
         mClickListener = clik;
         if (mMarkets.size() == 0) {
-            mMarkets.add(new Market(-1, 0, 0));
+            mMarkets.add(new Market(-1, "test", 0, 0,2));
             Logger.i(TAG, " constructor");
         }
 

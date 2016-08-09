@@ -8,7 +8,19 @@ import java.util.ArrayList;
 
 public interface UpLinkInterface {
 
-    public void createProduct(int id,String productName, ArrayList<Market> markets);
+    String getDate();
+
+    double getDollarValue();
+
+    void setDollarValue(double value);
+
+    long getUpdatedTime();
+
+    void addMessage(Messages message);
+
+    ArrayList<Messages> getMessages();
+
+    public void createProduct(int id, String productName, ArrayList<Market> markets);
 
     public void editProduct(int id, String productName, ArrayList<Market> market);
 

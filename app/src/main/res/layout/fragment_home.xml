@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.myapplication.ui.HomeFragment">
 
-    <com.myapplication.ui.VerticalViewPager
-
-        android:id="@+id/viewpager"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true" />
 
 
 </FrameLayout>

@@ -11,6 +11,37 @@ public class UpLinkImpl implements UpLinkInterface {
     private UplinkData mInstance = UplinkData.getInstance();
 
     @Override
+    public String getDate() {
+        return mInstance.getTodayDate();
+    }
+
+    @Override
+    public double getDollarValue() {
+        return mInstance.getDollarValue();
+
+    }
+
+    @Override
+    public void setDollarValue(double value) {
+        mInstance.setDollarValue(value);
+    }
+
+    @Override
+    public long getUpdatedTime() {
+        return mInstance.getUpdatedTime();
+    }
+
+    @Override
+    public void addMessage(Messages message) {
+        mInstance.addMessage(message);
+    }
+
+    @Override
+    public ArrayList<Messages> getMessages() {
+        return mInstance.getMessages();
+    }
+
+    @Override
     public void createProduct(int id, String productName, ArrayList<Market> markets) {
         mInstance.createProduct(id, productName, markets);
     }
@@ -18,7 +49,7 @@ public class UpLinkImpl implements UpLinkInterface {
     @Override
     public void editProduct(int id, String productName, ArrayList<Market> market) {
 
-        mInstance.editProduct(id,productName,market);
+        mInstance.editProduct(id, productName, market);
 
     }
 
@@ -30,7 +61,7 @@ public class UpLinkImpl implements UpLinkInterface {
 
     @Override
     public void addMarket(int productId, Market market) {
-        mInstance.addMarket(productId,market);
+        mInstance.addMarket(productId, market);
     }
 
     @Override
@@ -46,6 +77,6 @@ public class UpLinkImpl implements UpLinkInterface {
 
     @Override
     public void addProduct(Product product) {
-        mInstance.addProduct(product.getId(),product);
+        mInstance.addProduct(product.getId(), product);
     }
 }

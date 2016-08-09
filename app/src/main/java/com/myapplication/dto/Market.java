@@ -6,7 +6,7 @@ package com.myapplication.dto;
 
 public class Market {
 
-    private int id =-1;
+    private int id = -1;
     private String name = "";
     private long bags;
     private double price;
@@ -16,10 +16,13 @@ public class Market {
     public Market() {
     }
 
-    public Market(int id, long bags, double price) {
+    public Market(int id,String name, long bags, double price, int status) {
         this.id = id;
+        this.name =name;
         this.bags = bags;
         this.price = price;
+        this.status = status;
+
     }
 
     public Market(int id) {
