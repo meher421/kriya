@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getFragmentManager().beginTransaction().add(new HomeFragment(), "Home").addToBackStack("Home").commit();
+        getFragmentManager().beginTransaction().add(R.id.frame,new HomeFragment(), "Home").addToBackStack("Home").commit();
 
     }
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new AdminTestFragment();
         }
 
-        getFragmentManager().beginTransaction().add(fragment, item.getTitle().toString()).addToBackStack(item.getTitle().toString()).commit();
+        getFragmentManager().beginTransaction().add(R.id.frame,fragment, item.getTitle().toString()).addToBackStack(item.getTitle().toString()).commit();
         Logger.i(TAG, "adding fragment :" + item.getTitle().toString());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

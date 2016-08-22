@@ -3,8 +3,8 @@ package com.myapplication.admin.ui;
 import com.myapplication.dto.Market;
 import com.myapplication.dto.Messages;
 import com.myapplication.dto.Product;
-import com.myapplication.dto.UpLinkImpl;
-import com.myapplication.dto.UpLinkInterface;
+import com.myapplication.dto.uplink.UpLinkImpl;
+import com.myapplication.dto.uplink.UpLinkInterface;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 public class Test {
 
-    public static void createTestData() {
+    public static void
+    createTestData() {
         UpLinkInterface upLinkInterface = new UpLinkImpl();
 
         ArrayList<Market> markets1 = new ArrayList<>();

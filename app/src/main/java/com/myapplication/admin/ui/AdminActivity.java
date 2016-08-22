@@ -13,8 +13,8 @@ import android.widget.Toast;
 import com.myapplication.R;
 import com.myapplication.Utils.Logger;
 import com.myapplication.dto.Product;
-import com.myapplication.dto.UpLinkImpl;
-import com.myapplication.dto.UpLinkInterface;
+import com.myapplication.dto.uplink.UpLinkImpl;
+import com.myapplication.dto.uplink.UpLinkInterface;
 
 import java.util.ArrayList;
 

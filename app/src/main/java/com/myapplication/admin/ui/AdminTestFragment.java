@@ -11,8 +11,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.myapplication.R;
 import com.myapplication.dto.Product;
-import com.myapplication.dto.UpLinkImpl;
-import com.myapplication.dto.UpLinkInterface;
+import com.myapplication.dto.uplink.UpLinkImpl;
+import com.myapplication.dto.uplink.UpLinkInterface;
 
 import java.util.ArrayList;
 
@@ -65,7 +65,7 @@ public class AdminTestFragment extends Fragment {
 
         DatabaseReference dateRef = databaseReference.child(linkInterface.getDate());
 
-        dateRef.child("Dollar Price").setValue(linkInterface.getDollarValue());
+        dateRef.child("dollar").setValue(linkInterface.getDollarValue());
         dateRef.child("lastUpdated").setValue(linkInterface.getUpdatedTime());
 
         DatabaseReference productRef = dateRef.child("Products");

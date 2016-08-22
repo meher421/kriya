@@ -1,4 +1,8 @@
-package com.myapplication.dto;
+package com.myapplication.dto.uplink;
+
+import com.myapplication.dto.Market;
+import com.myapplication.dto.Messages;
+import com.myapplication.dto.Product;
 
 import java.util.ArrayList;
 

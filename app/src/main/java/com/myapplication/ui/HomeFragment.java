@@ -1,25 +1,24 @@
 package com.myapplication.ui;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.myapplication.R;
-import com.myapplication.ui.VerticalViewPager;
+import com.myapplication.Utils.Logger;
+import com.myapplication.admin.ui.AdminActivity;
+import com.myapplication.ui.adapters.HomeAdapter;
 
-import java.util.Locale;
 
-
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements AdminActivity.OnClickAdapterItem{
 
     private RecyclerView mRecyclerView;
+    private HomeAdapter mAdapter;
+    private final String TAG = "HomeFragment-123456";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,11 +29,25 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
+        mAdapter = new HomeAdapter(this,getActivity());
+
+
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.addList();
 
 
         return view;
     }
 
 
+    @Override
+    public void onClickAdapterItem(View view, int position) {
+        Logger.i(TAG,"onClickAdapterItem : "+position);
+
+        DownlinkIntentService.startActionFoo(getActivity(),"","");
+
+    }
 }

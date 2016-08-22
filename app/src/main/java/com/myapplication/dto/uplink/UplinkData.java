@@ -1,11 +1,12 @@
-package com.myapplication.dto;
+package com.myapplication.dto.uplink;
 
 import com.myapplication.Utils.Logger;
+import com.myapplication.Utils.Util;
+import com.myapplication.dto.Market;
+import com.myapplication.dto.Messages;
+import com.myapplication.dto.Product;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by meher on 26/7/16.
@@ -86,13 +87,8 @@ public class UplinkData {
     }
 
     public String getTodayDate() {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = new Date();
-        String todaysDate = dateFormat.format(date);
-        todaysDate = "07-08-2016";
-        System.out.println(); //2014/08/06 15:59:48
-        Logger.i("123456", " Todays date : " + todaysDate);
-        return todaysDate;
+
+        return Util.getTodayDate();
 
     }
 

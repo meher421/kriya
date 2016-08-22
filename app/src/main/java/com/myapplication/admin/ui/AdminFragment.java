@@ -17,7 +17,7 @@ import com.myapplication.R;
 import com.myapplication.Utils.Logger;
 import com.myapplication.dto.Market;
 import com.myapplication.dto.Product;
-import com.myapplication.dto.UplinkData;
+import com.myapplication.dto.uplink.UplinkData;
 
 import java.util.ArrayList;
 
