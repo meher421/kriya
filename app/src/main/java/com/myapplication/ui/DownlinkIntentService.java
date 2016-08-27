@@ -3,7 +3,6 @@ package com.myapplication.ui;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,7 +11,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.myapplication.Utils.Logger;
 import com.myapplication.Utils.Util;
+import com.myapplication.dto.Product;
 import com.myapplication.dto.downlink.DayData;
+import com.myapplication.dto.downlink.DownlinkImpl;
+import com.myapplication.dto.downlink.IDownLink;
 
 import java.util.Iterator;
 
@@ -83,7 +85,7 @@ public class DownlinkIntentService extends IntentService {
      */
     private void handleActionFoo(String param1, String param2) {
 
-        Logger.i("123456","handleActionFoo ");
+        Logger.i(TAG ,"handleActionFoo ");
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         database.child("DailyMarket").child(Util.getTodayDate()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -91,24 +93,30 @@ public class DownlinkIntentService extends IntentService {
 
                 Iterator<DataSnapshot> it = dataSnapshot.getChildren().iterator();
 
-                while(it.hasNext()){
-                    Logger.i(TAG," iterator : "+it.next());
+                while (it.hasNext()) {
+                    Logger.i(TAG, " iterator : " + it.next());
                 }
 
                 DayData data = dataSnapshot.getValue(DayData.class);
                 double dPrice = data.getDollar();
 
-                Logger.i(TAG," dollar price "+dPrice);
+                IDownLink downLink = DownlinkImpl.getInstance();
+                downLink.setTodaysData(data);
+
+                Logger.i(TAG, " dollar price " + dPrice +": "+data.getLastUpdated()+" \n  products :: "+(data.getProducts()) +" \n  messages:"+data.getMessages());
+
+                notifyJobDone();
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            Logger.i(TAG,"queryFailed");
+                Logger.i(TAG, "queryFailed");
+
+                notifyJobDone();
             }
         });
-
 
 
     }
@@ -120,5 +128,19 @@ public class DownlinkIntentService extends IntentService {
     private void handleActionBaz(String param1, String param2) {
         // TODO: Handle action Baz
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+
+    void notifyJobDone(){
+        Intent intent = new Intent();
+        intent.setAction("TEST");
+        sendBroadcast(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Logger.i(TAG,"onDestroy");
+
     }
 }

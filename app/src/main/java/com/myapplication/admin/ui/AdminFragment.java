@@ -34,7 +34,7 @@ public class AdminFragment extends Fragment implements View.OnClickListener, Adm
     private ImageView mSubmit;
 
 
-    static AdminFragment init(int val) {
+    public static AdminFragment init(int val) {
         AdminFragment fragment = new AdminFragment();
 
         Bundle args = new Bundle();

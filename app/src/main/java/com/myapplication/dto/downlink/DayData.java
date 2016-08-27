@@ -1,15 +1,25 @@
 package com.myapplication.dto.downlink;
 
+import com.myapplication.dto.Market;
 import com.myapplication.dto.Messages;
 import com.myapplication.dto.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by meher on 21/8/16.
  */
 
 public class DayData {
+
+    private double dollar;
+    private long lastUpdated;
+    private ArrayList<Messages> messages;
+    private HashMap<String,ArrayList<Market>> products;
+    public DayData() {
+
+    }
 
     public double getDollar() {
         return dollar;
@@ -19,13 +29,6 @@ public class DayData {
         this.dollar = dollar;
     }
 
-    private double dollar;
-    private long lastUpdated;
-
-    private ArrayList<Messages> mMessages;
-    private ArrayList<Product> mProducts;
-
-
     public long getLastUpdated() {
         return lastUpdated;
     }
@@ -34,19 +37,19 @@ public class DayData {
         this.lastUpdated = lastUpdated;
     }
 
-    public ArrayList<Messages> getmMessages() {
-        return mMessages;
+    public ArrayList<Messages> getMessages() {
+        return messages;
     }
 
-    public void setmMessages(ArrayList<Messages> mMessages) {
-        this.mMessages = mMessages;
+    public void setMessages(ArrayList<Messages> messages) {
+        this.messages = messages;
     }
 
-    public ArrayList<Product> getmProducts() {
-        return mProducts;
+    public HashMap<String,ArrayList<Market>> getProducts() {
+        return products;
     }
 
-    public void setmProducts(ArrayList<Product> mProducts) {
-        this.mProducts = mProducts;
+    public void setProducts(HashMap<String,ArrayList<Market>> products) {
+        this.products = products;
     }
 }
