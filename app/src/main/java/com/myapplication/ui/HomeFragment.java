@@ -36,7 +36,6 @@ public class HomeFragment extends Fragment implements AdminActivity.OnClickAdapt
 
 
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.addList();
 
 
         return view;
@@ -47,7 +46,7 @@ public class HomeFragment extends Fragment implements AdminActivity.OnClickAdapt
     public void onClickAdapterItem(View view, int position) {
         Logger.i(TAG,"onClickAdapterItem : "+position);
 
-        DownlinkIntentService.startActionFoo(getActivity(),"","");
+
 
     }
 }

@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.myapplication.R;
-import com.myapplication.Utils.Logger;
 import com.myapplication.admin.ui.AdminActivity;
+import com.myapplication.dto.Product;
+import com.myapplication.dto.downlink.DownlinkImpl;
+import com.myapplication.dto.downlink.IDownLink;
 
 import java.util.ArrayList;
 
@@ -20,25 +22,27 @@ import java.util.ArrayList;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     private static final String TAG = "HomeAdapter-123456";
-    private ArrayList<String> mList = new ArrayList<>();
+    private ArrayList<Product> mList = new ArrayList<>();
     private AdminActivity.OnClickAdapterItem onClickAdapterItem;
-
+    private IDownLink mDownLink;
     private Context mContext;
 
     public HomeAdapter(AdminActivity.OnClickAdapterItem listener, Context context) {
         onClickAdapterItem = listener;
         mContext = context;
+        mDownLink = DownlinkImpl.getInstance();
+//        mList = mDownLink.getProducts();
 
     }
 
-    public void addList() {
-        mList.add("Turmaric");
-        mList.add("cashew");
-        mList.add("badam");
-        mList.add("mirchi");
-
-        notifyDataSetChanged();
-    }
+//    public void addList() {
+//        mList.add("Turmaric");
+//        mList.add("cashew");
+//        mList.add("badam");
+//        mList.add("mirchi");
+//
+//        notifyDataSetChanged();
+//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,7 +65,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
 
     private void configureViewHolder(ViewHolder holder, int position) {
-        String title = mList.get(position);
+        String title = mList.get(position).getName();
 
         holder.mTitle.setText("" + title);
 
@@ -85,7 +89,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickAdapterItem.onClickAdapterItem(v,getAdapterPosition());
+                    onClickAdapterItem.onClickAdapterItem(v, getAdapterPosition());
                 }
             });
         }

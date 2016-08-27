@@ -40,8 +40,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getFragmentManager().beginTransaction().add(R.id.frame,new HomeFragment(), "Home").addToBackStack("Home").commit();
+        getFragmentManager().beginTransaction().add(R.id.frame,new SplashFragment(), "splash").commit();
 
+    }
+
+    public void startHomeFragment(){
+        getFragmentManager().beginTransaction().add(R.id.frame,new HomeFragment(), "home").addToBackStack("home").commit();
     }
 
     @Override

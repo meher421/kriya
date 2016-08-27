@@ -5,10 +5,11 @@ package com.myapplication.dto;
  */
 
 public class Messages {
-
     private long lastUpdate;
     private String message;
     private String title;
+    public Messages() {
+    }
 
     public String getTitle() {
         return title;

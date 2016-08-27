@@ -16,7 +16,7 @@ public class Util {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
         String todaysDate = dateFormat.format(date);
-//        todaysDate = "07-08-2016";
+//        todaysDate = "23-08-2016";
         Logger.i("123456", " Todays date : " + todaysDate);
 
         return todaysDate;
