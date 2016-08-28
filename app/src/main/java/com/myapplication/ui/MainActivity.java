@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getFragmentManager().beginTransaction().add(R.id.frame,new SplashFragment(), "splash").commit();
+        getFragmentManager().beginTransaction().replace(R.id.frame,new SplashFragment(), "splash").commit();
 
     }
 
     public void startHomeFragment(){
-        getFragmentManager().beginTransaction().add(R.id.frame,new HomeFragment(), "home").addToBackStack("home").commit();
+        getFragmentManager().beginTransaction().replace(R.id.frame,new HomeFragment(), "home").addToBackStack("home").commit();
     }
 
     @Override

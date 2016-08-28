@@ -59,7 +59,7 @@ public class SplashFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.splash_layout, container, false);
 
-        DownlinkIntentService.startActionFoo(getActivity(),"","");
+        DownlinkIntentService.startActionBaz(getActivity(),"","");
         mHandler = new Handler(mCallBack);
         mHandler.sendEmptyMessageDelayed(MSG_TIME_OUT, TIME_OUT);
 
@@ -95,7 +95,7 @@ public class SplashFragment extends Fragment {
 
     private void launchHomeFragment() {
         if(launch)
-        mActivity.startHomeFragment();
+           mActivity.startHomeFragment();
         else{
             Logger.i(TAG,"still preparing for launch");
         }

@@ -11,12 +11,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.myapplication.Utils.Logger;
 import com.myapplication.Utils.Util;
-import com.myapplication.dto.Product;
 import com.myapplication.dto.downlink.DayData;
 import com.myapplication.dto.downlink.DownlinkImpl;
 import com.myapplication.dto.downlink.IDownLink;
+import com.myapplication.dto.testLink.ITest;
+import com.myapplication.dto.testLink.Market;
+import com.myapplication.dto.testLink.ProductData;
+import com.myapplication.dto.testLink.TestLinkImpl;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class DownlinkIntentService extends IntentService {
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
@@ -103,7 +108,7 @@ public class DownlinkIntentService extends IntentService {
                 IDownLink downLink = DownlinkImpl.getInstance();
                 downLink.setTodaysData(data);
 
-                Logger.i(TAG, " dollar price " + dPrice +": "+data.getLastUpdated()+" \n  products :: "+(data.getProducts()) +" \n  messages:"+data.getMessages());
+                Logger.i(TAG, " dollar price " + dPrice +": "+data.getLastUpdated()+" \n  products :: "+(data.getProducts().get("Badam")) +" \n  messages:"+data.getMessages());
 
                 notifyJobDone();
 
@@ -127,7 +132,66 @@ public class DownlinkIntentService extends IntentService {
      */
     private void handleActionBaz(String param1, String param2) {
         // TODO: Handle action Baz
-        throw new UnsupportedOperationException("Not yet implemented");
+        Logger.i(TAG ,"handleActionBaz ");
+
+
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
+
+        database.child("GlobalMarket").child("data").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Logger.i(TAG,"data : "+dataSnapshot);
+
+                ProductData data  = dataSnapshot.getValue(ProductData.class);
+                Logger.i(TAG," product data : "+data.getProducts().get("Badam").get("Bodhan").getTimeStamp());
+
+                ITest iTest = TestLinkImpl.getInstance();
+                iTest.setProducts(data.getProducts());
+
+                Logger.i(TAG," product data 2 : "+iTest.getProducts().get("Badam").get("Bodhan").getTimeStamp());
+
+                notifyJobDone();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                notifyJobDone();
+
+                Logger.i(TAG,"onCancelled :"+databaseError.getMessage());
+
+            }
+        });
+
+
+    }
+
+    private void getProductsList() {
+
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
+        database.child("GlobalMarket").child("productsList").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Logger.i(TAG,"onDataChange :"+dataSnapshot);
+
+                Map<String,Object> data = (Map<String, Object>)dataSnapshot.getValue();
+
+                ITest iTest = TestLinkImpl.getInstance();
+                iTest.setProductMap(data);
+                Logger.i(TAG,"data "+data.toString() );
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Logger.i(TAG,"onCancelled :"+databaseError.getMessage());
+
+            }
+        });
+
     }
 
 

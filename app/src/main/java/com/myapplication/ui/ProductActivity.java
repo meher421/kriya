@@ -1,4 +1,4 @@
-package com.myapplication.ui.adapters;
+package com.myapplication.ui;
 
 import android.content.Context;
 import android.os.Bundle;

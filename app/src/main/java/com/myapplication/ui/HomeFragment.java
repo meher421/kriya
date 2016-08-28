@@ -1,6 +1,8 @@
 package com.myapplication.ui;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,29 @@ public class HomeFragment extends Fragment implements AdminActivity.OnClickAdapt
     private RecyclerView mRecyclerView;
     private HomeAdapter mAdapter;
     private final String TAG = "HomeFragment-123456";
+    private MainActivity mActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        mActivity = (MainActivity) activity;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainActivity) {
+            mActivity = (MainActivity) context;
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivity.getSupportActionBar().show();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

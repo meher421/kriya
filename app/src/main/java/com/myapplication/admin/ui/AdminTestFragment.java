@@ -41,9 +41,12 @@ public class AdminTestFragment extends Fragment {
                              Bundle savedInstanceState) {
         getActivity().setTitle("AdminTest");
         // Inflate the layout for this fragment
-        simTest();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        Test.createTestData2(database);
+//        simTest();
         return inflater.inflate(R.layout.fragment_admin_fragmner, container, false);
     }
+
 
     public void simTest() {
         Test.createTestData();

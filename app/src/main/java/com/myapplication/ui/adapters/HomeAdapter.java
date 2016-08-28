@@ -9,11 +9,13 @@ import android.widget.TextView;
 
 import com.myapplication.R;
 import com.myapplication.admin.ui.AdminActivity;
-import com.myapplication.dto.Product;
-import com.myapplication.dto.downlink.DownlinkImpl;
-import com.myapplication.dto.downlink.IDownLink;
+import com.myapplication.dto.testLink.ITest;
+import com.myapplication.dto.testLink.Market;
+import com.myapplication.dto.testLink.TestLinkImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by meher on 9/8/16.
@@ -22,16 +24,22 @@ import java.util.ArrayList;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     private static final String TAG = "HomeAdapter-123456";
-    private ArrayList<Product> mList = new ArrayList<>();
+    private ArrayList<String> mList;
     private AdminActivity.OnClickAdapterItem onClickAdapterItem;
-    private IDownLink mDownLink;
+    private ITest mDownLink;
     private Context mContext;
 
     public HomeAdapter(AdminActivity.OnClickAdapterItem listener, Context context) {
         onClickAdapterItem = listener;
         mContext = context;
-        mDownLink = DownlinkImpl.getInstance();
-//        mList = mDownLink.getProducts();
+        mList = new ArrayList<>(9);
+
+        mDownLink = TestLinkImpl.getInstance();
+
+        for (Map.Entry<String, HashMap<String, Market>> map : mDownLink.getProducts().entrySet()) {
+            mList.add(map.getKey());
+
+        }
 
     }
 
@@ -65,7 +73,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
 
     private void configureViewHolder(ViewHolder holder, int position) {
-        String title = mList.get(position).getName();
+        String title = mList.get(position);
 
         holder.mTitle.setText("" + title);
 
