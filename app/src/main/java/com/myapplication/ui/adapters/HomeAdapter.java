@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.myapplication.R;
 import com.myapplication.admin.ui.AdminActivity;
-import com.myapplication.dto.testLink.ITest;
-import com.myapplication.dto.testLink.Market;
-import com.myapplication.dto.testLink.TestLinkImpl;
+import com.myapplication.dto.IMarket;
+import com.myapplication.dto.Market;
+import com.myapplication.dto.MarketHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private static final String TAG = "HomeAdapter-123456";
     private ArrayList<String> mList;
     private AdminActivity.OnClickAdapterItem onClickAdapterItem;
-    private ITest mDownLink;
+    private IMarket mDownLink;
     private Context mContext;
 
     public HomeAdapter(AdminActivity.OnClickAdapterItem listener, Context context) {
@@ -34,7 +34,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         mContext = context;
         mList = new ArrayList<>(9);
 
-        mDownLink = TestLinkImpl.getInstance();
+        mDownLink = MarketHelper.getInstance();
 
         for (Map.Entry<String, HashMap<String, Market>> map : mDownLink.getProducts().entrySet()) {
             mList.add(map.getKey());

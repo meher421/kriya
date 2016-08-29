@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.myapplication.R;
 import com.myapplication.Utils.Logger;
-import com.myapplication.dto.Market;
+import com.myapplication.testdto.Market;
 
 import java.util.ArrayList;
 

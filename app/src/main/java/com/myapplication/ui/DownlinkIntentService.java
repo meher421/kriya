@@ -11,23 +11,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.myapplication.Utils.Logger;
 import com.myapplication.Utils.Util;
-import com.myapplication.dto.downlink.DayData;
-import com.myapplication.dto.downlink.DownlinkImpl;
-import com.myapplication.dto.downlink.IDownLink;
-import com.myapplication.dto.testLink.ITest;
-import com.myapplication.dto.testLink.Market;
-import com.myapplication.dto.testLink.ProductData;
-import com.myapplication.dto.testLink.TestLinkImpl;
+import com.myapplication.testdto.downlink.DayData;
+import com.myapplication.testdto.downlink.DownlinkImpl;
+import com.myapplication.testdto.downlink.IDownLink;
+import com.myapplication.dto.IMarket;
+import com.myapplication.dto.ProductModelHelper;
+import com.myapplication.dto.MarketHelper;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Map;
 
 public class DownlinkIntentService extends IntentService {
+
+    public static final String ACTION_INIT_COMPLETE = "com.myapplication.ui.action_INIT_COMPLETE";
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_FOO = "com.myapplication.ui.action.FOO";
-    private static final String ACTION_BAZ = "com.myapplication.ui.action.BAZ";
-
+    private static final String ACTION_DATA_INIT = "com.myapplication.ui.action.DATA_INIT";
     // TODO: Rename parameters
     private static final String EXTRA_PARAM1 = "com.myapplication.ui.extra.PARAM1";
     private static final String EXTRA_PARAM2 = "com.myapplication.ui.extra.PARAM2";
@@ -60,11 +60,9 @@ public class DownlinkIntentService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void startActionBaz(Context context, String param1, String param2) {
+    public static void startActionDataInit(Context context) {
         Intent intent = new Intent(context, DownlinkIntentService.class);
-        intent.setAction(ACTION_BAZ);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
+        intent.setAction(ACTION_DATA_INIT);
         context.startService(intent);
     }
 
@@ -76,10 +74,8 @@ public class DownlinkIntentService extends IntentService {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
                 final String param2 = intent.getStringExtra(EXTRA_PARAM2);
                 handleActionFoo(param1, param2);
-            } else if (ACTION_BAZ.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionBaz(param1, param2);
+            } else if (ACTION_DATA_INIT.equals(action)) {
+                handleActionDataInit();
             }
         }
     }
@@ -90,7 +86,7 @@ public class DownlinkIntentService extends IntentService {
      */
     private void handleActionFoo(String param1, String param2) {
 
-        Logger.i(TAG ,"handleActionFoo ");
+        Logger.i(TAG, "handleActionFoo ");
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         database.child("DailyMarket").child(Util.getTodayDate()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -108,7 +104,7 @@ public class DownlinkIntentService extends IntentService {
                 IDownLink downLink = DownlinkImpl.getInstance();
                 downLink.setTodaysData(data);
 
-                Logger.i(TAG, " dollar price " + dPrice +": "+data.getLastUpdated()+" \n  products :: "+(data.getProducts().get("Badam")) +" \n  messages:"+data.getMessages());
+                Logger.i(TAG, " dollar price " + dPrice + ": " + data.getLastUpdated() + " \n  products :: " + (data.getProducts().get("Badam")) + " \n  messages:" + data.getMessages());
 
                 notifyJobDone();
 
@@ -130,9 +126,9 @@ public class DownlinkIntentService extends IntentService {
      * Handle action Baz in the provided background thread with the provided
      * parameters.
      */
-    private void handleActionBaz(String param1, String param2) {
+    private void handleActionDataInit() {
         // TODO: Handle action Baz
-        Logger.i(TAG ,"handleActionBaz ");
+        Logger.i(TAG, "handleActionDataInit ");
 
 
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -142,16 +138,20 @@ public class DownlinkIntentService extends IntentService {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Logger.i(TAG,"data : "+dataSnapshot);
+                Logger.i(TAG, "data : " + dataSnapshot);
 
-                ProductData data  = dataSnapshot.getValue(ProductData.class);
-                Logger.i(TAG," product data : "+data.getProducts().get("Badam").get("Bodhan").getTimeStamp());
+                ProductModelHelper data = dataSnapshot.getValue(ProductModelHelper.class);
+                Logger.i(TAG, " product data : " + data.getProducts().get("Badam").get("Bodhan").getTimeStamp());
 
-                ITest iTest = TestLinkImpl.getInstance();
-                iTest.setProducts(data.getProducts());
+                IMarket market = MarketHelper.getInstance();
+                market.setProducts(data.getProducts());
 
-                Logger.i(TAG," product data 2 : "+iTest.getProducts().get("Badam").get("Bodhan").getTimeStamp());
+                Logger.i(TAG, " product data 2 : " + market.getProducts().get("Badam").get("Bodhan").getTimeStamp());
 
+                Object[] products = data.getProducts().keySet().toArray();
+
+                ArrayList list = new ArrayList(Arrays.asList(products));
+                Logger.i(TAG,"products list toString : "+list.toString());
                 notifyJobDone();
             }
 
@@ -159,7 +159,7 @@ public class DownlinkIntentService extends IntentService {
             public void onCancelled(DatabaseError databaseError) {
                 notifyJobDone();
 
-                Logger.i(TAG,"onCancelled :"+databaseError.getMessage());
+                Logger.i(TAG, "onCancelled :" + databaseError.getMessage());
 
             }
         });
@@ -167,44 +167,17 @@ public class DownlinkIntentService extends IntentService {
 
     }
 
-    private void getProductsList() {
 
-        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-
-        database.child("GlobalMarket").child("productsList").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Logger.i(TAG,"onDataChange :"+dataSnapshot);
-
-                Map<String,Object> data = (Map<String, Object>)dataSnapshot.getValue();
-
-                ITest iTest = TestLinkImpl.getInstance();
-                iTest.setProductMap(data);
-                Logger.i(TAG,"data "+data.toString() );
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Logger.i(TAG,"onCancelled :"+databaseError.getMessage());
-
-            }
-        });
-
-    }
-
-
-    void notifyJobDone(){
+    private void notifyJobDone() {
         Intent intent = new Intent();
-        intent.setAction("TEST");
+        intent.setAction(ACTION_INIT_COMPLETE);
         sendBroadcast(intent);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Logger.i(TAG,"onDestroy");
+        Logger.i(TAG, "onDestroy");
 
     }
 }

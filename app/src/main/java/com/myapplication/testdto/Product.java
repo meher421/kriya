@@ -1,4 +1,4 @@
-package com.myapplication.dto;
+package com.myapplication.testdto;
 
 import java.util.ArrayList;
 

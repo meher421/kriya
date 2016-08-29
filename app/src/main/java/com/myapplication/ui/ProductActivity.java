@@ -11,9 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.myapplication.R;
 import com.myapplication.admin.ui.AdminFragment;
-import com.myapplication.dto.Product;
-import com.myapplication.dto.downlink.DownlinkImpl;
-import com.myapplication.dto.downlink.IDownLink;
+import com.myapplication.dto.IMarket;
+import com.myapplication.dto.MarketHelper;
+import com.myapplication.testdto.Product;
+import com.myapplication.testdto.downlink.DownlinkImpl;
+import com.myapplication.testdto.downlink.IDownLink;
 
 import java.util.ArrayList;
 
@@ -24,10 +26,10 @@ import java.util.ArrayList;
 public class ProductActivity extends AppCompatActivity {
 
     private ViewPager mPager;
-    private IDownLink mDownLink;
     private MyAdapter mAdapter;
     private Context mContext;
     private ArrayList<Product> mProducts;
+    private IMarket market;
 
     private String TAG = "ProductActivity-123456";
 
@@ -42,11 +44,12 @@ public class ProductActivity extends AppCompatActivity {
         setContentView(R.layout.product_parent_layout);
         mPager = (ViewPager) findViewById(R.id.pager);
 
-        mDownLink =  DownlinkImpl.getInstance();
+        market = MarketHelper.getInstance();
+        int productsCount = market.getProducts().size();
 //        mProducts = mDownLink.getProducts().;
 
 
-        mAdapter = new ProductActivity.MyAdapter(getSupportFragmentManager(),3);
+        mAdapter = new ProductActivity.MyAdapter(getSupportFragmentManager(),productsCount);
 
 
     }
@@ -63,15 +66,6 @@ public class ProductActivity extends AppCompatActivity {
             init(size);
         }
 
-        /*public void addFragment() {
-            Logger.i(TAG, " products size ;  " + mProducts.size());
-            int id = -1;
-
-            id = mProducts.get(fragments.size()).getId();
-            fragments.add(AdminFragment.init(id));
-
-        }*/
-
         @Override
         public int getCount() {
             int size = mProducts.size();
@@ -87,7 +81,7 @@ public class ProductActivity extends AppCompatActivity {
 
         public void init(int size) {
             for (int i = 0; i < size; i++) {
-                fragments.add(AdminFragment.init(mProducts.get(i).getId()));
+                fragments.add(ProductsFragment.init(mProducts.get(i).getId()));
             }
         }
     }

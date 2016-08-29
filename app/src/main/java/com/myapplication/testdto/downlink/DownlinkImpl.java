@@ -1,8 +1,7 @@
-package com.myapplication.dto.downlink;
+package com.myapplication.testdto.downlink;
 
-import com.myapplication.dto.Market;
-import com.myapplication.dto.Messages;
-import com.myapplication.dto.Product;
+import com.myapplication.testdto.Market;
+import com.myapplication.testdto.Messages;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -59,11 +59,11 @@ public class SplashFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.splash_layout, container, false);
 
-        DownlinkIntentService.startActionBaz(getActivity(),"","");
+        DownlinkIntentService.startActionDataInit(getActivity());
         mHandler = new Handler(mCallBack);
         mHandler.sendEmptyMessageDelayed(MSG_TIME_OUT, TIME_OUT);
 
-        mActivity.registerReceiver(mBroadcastReceiver,new IntentFilter("TEST"));
+        mActivity.registerReceiver(mBroadcastReceiver,new IntentFilter(DownlinkIntentService.ACTION_INIT_COMPLETE));
         return view;
     }
 

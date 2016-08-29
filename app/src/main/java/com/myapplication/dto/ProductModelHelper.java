@@ -1,4 +1,4 @@
-package com.myapplication.dto.testLink;
+package com.myapplication.dto;
 
 import java.util.HashMap;
 
@@ -6,9 +6,9 @@ import java.util.HashMap;
  * Created by meher on 28/8/16.
  */
 
-public class ProductData {
+public class ProductModelHelper {
 
-    public ProductData(){}
+    public ProductModelHelper(){}
 
 
     private HashMap<String,HashMap<String,Market>> products;

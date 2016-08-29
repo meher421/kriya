@@ -1,32 +1,50 @@
 package com.myapplication.dto;
 
 /**
- * Created by meher on 26/7/16.
+ * Created by meher on 28/8/16.
  */
 
 public class Market {
 
-    private int id = -1;
-    private String name = "";
-    private long bags;
-    private double price;
-    private int state;
-    private int status;
+    String name;
+    int bags;
+    String date;
+    double status;
+    int state;
+    long timestamp;
 
-    public Market() {
+    public Market(){}
+
+    public String getName() {
+        return name;
     }
 
-    public Market(int id,String name, long bags, double price, int status) {
-        this.id = id;
-        this.name =name;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getBags() {
+        return bags;
+    }
+
+    public void setBags(int bags) {
         this.bags = bags;
-        this.price = price;
-        this.status = status;
-
     }
 
-    public Market(int id) {
-        this.id = id;
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public double getStatus() {
+        return status;
+    }
+
+    public void setStatus(double status) {
+        this.status = status;
     }
 
     public int getState() {
@@ -37,44 +55,11 @@ public class Market {
         this.state = state;
     }
 
-    public int getStatus() {
-        return status;
+    public long getTimeStamp() {
+        return timestamp;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setTimeStamp(long timeStamp) {
+        this.timestamp = timeStamp;
     }
-
-    public void setMarketName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public long getBags() {
-        return bags;
-    }
-
-    public void setBags(long bags) {
-        this.bags = bags;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
 }

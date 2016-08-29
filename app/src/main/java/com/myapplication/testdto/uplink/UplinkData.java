@@ -1,10 +1,10 @@
-package com.myapplication.dto.uplink;
+package com.myapplication.testdto.uplink;
 
 import com.myapplication.Utils.Logger;
 import com.myapplication.Utils.Util;
-import com.myapplication.dto.Market;
-import com.myapplication.dto.Messages;
-import com.myapplication.dto.Product;
+import com.myapplication.testdto.Market;
+import com.myapplication.testdto.Messages;
+import com.myapplication.testdto.Product;
 
 import java.util.ArrayList;
 

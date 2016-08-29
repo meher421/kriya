@@ -1,4 +1,4 @@
-package com.myapplication.dto;
+package com.myapplication.testdto;
 
 /**
  * Created by meher on 6/8/16.

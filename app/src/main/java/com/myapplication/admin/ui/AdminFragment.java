@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 import com.myapplication.R;
 import com.myapplication.Utils.Logger;
-import com.myapplication.dto.Market;
-import com.myapplication.dto.Product;
-import com.myapplication.dto.uplink.UplinkData;
+import com.myapplication.testdto.Market;
+import com.myapplication.testdto.Product;
+import com.myapplication.testdto.uplink.UplinkData;
 
 import java.util.ArrayList;
 
