@@ -36,7 +36,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         mDownLink = MarketHelper.getInstance();
 
-        for (Map.Entry<String, HashMap<String, Market>> map : mDownLink.getProducts().entrySet()) {
+        for (Map.Entry<String, HashMap<String, Market>> map : mDownLink.getProductsData().entrySet()) {
             mList.add(map.getKey());
 
         }

@@ -11,15 +11,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.myapplication.Utils.Logger;
 import com.myapplication.Utils.Util;
+import com.myapplication.dto.IMarket;
+import com.myapplication.dto.MarketHelper;
+import com.myapplication.dto.ProductModelHelper;
 import com.myapplication.testdto.downlink.DayData;
 import com.myapplication.testdto.downlink.DownlinkImpl;
 import com.myapplication.testdto.downlink.IDownLink;
-import com.myapplication.dto.IMarket;
-import com.myapplication.dto.ProductModelHelper;
-import com.myapplication.dto.MarketHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class DownlinkIntentService extends IntentService {
@@ -141,17 +142,34 @@ public class DownlinkIntentService extends IntentService {
                 Logger.i(TAG, "data : " + dataSnapshot);
 
                 ProductModelHelper data = dataSnapshot.getValue(ProductModelHelper.class);
-                Logger.i(TAG, " product data : " + data.getProducts().get("Badam").get("Bodhan").getTimeStamp());
+//                Logger.i(TAG, " product data : " + data.getProducts().get("Badam").get("Bodhan").getTimeStamp());
 
-                IMarket market = MarketHelper.getInstance();
-                market.setProducts(data.getProducts());
+                IMarket marketHelper = MarketHelper.getInstance();
+                marketHelper.setProductsData(data.getProducts());
 
-                Logger.i(TAG, " product data 2 : " + market.getProducts().get("Badam").get("Bodhan").getTimeStamp());
+//                Logger.i(TAG, " product data 2 : " + marketHelper.getProductsData().get("Badam").get("Bodhan").getTimeStamp());
 
                 Object[] products = data.getProducts().keySet().toArray();
 
                 ArrayList list = new ArrayList(Arrays.asList(products));
+                marketHelper.setProducts(list);
+
                 Logger.i(TAG,"products list toString : "+list.toString());
+
+                HashMap<String ,ArrayList<String>> marketsMap = new HashMap<>();
+
+                for(Object product : list){
+                    String productName = product.toString();
+                    Object[] test = data.getProducts().get(productName).keySet().toArray();
+                    ArrayList marketList = new ArrayList(Arrays.asList(test));
+                    marketsMap.put(productName,marketList);
+
+
+                    Logger.i(TAG,"Markets list toString : "+marketList.toString());
+                }
+                marketHelper.setMarketsMap(marketsMap);
+
+
                 notifyJobDone();
             }
 

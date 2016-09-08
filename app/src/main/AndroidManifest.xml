@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".admin.ui.AdminActivity" />
+        <activity android:name=".ui.ProductActivity" />
 
         <service
             android:name=".ui.DownlinkIntentService"

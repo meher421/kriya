@@ -1,5 +1,6 @@
 package com.myapplication.dto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,12 +23,44 @@ public class MarketHelper implements IMarket {
 
 
     @Override
-    public Map<String, HashMap<String, Market>> getProducts() {
-        return linkData.getProducts();
+    public Map<String, HashMap<String, Market>> getProductsData() {
+        return linkData.getProductsData();
     }
 
     @Override
-    public void setProducts(Map<String, HashMap<String, Market>> data) {
-        linkData.setProducts(data);
+    public void setProductsData(Map<String, HashMap<String, Market>> data) {
+        linkData.setProductsData(data);
+    }
+
+    @Override
+    public ArrayList<String> getProducts() {
+      return linkData.getProducts();
+    }
+
+    @Override
+    public void setProducts(ArrayList<String> list) {
+        linkData.setProducts(list);
+
+    }
+
+    @Override
+    public void setMarketsMap(HashMap<String,ArrayList<String>> test) {
+        linkData.setMarketsMap(test);
+
+    }
+
+    @Override
+    public HashMap<String,ArrayList<String>> getMarketsMap() {
+        return linkData.getMarketsMap();
+    }
+
+
+    public void getMarket(String productId,String market) {
+        linkData.getMarket(productId,market);
+    }
+
+
+    public ArrayList<String> getMarket(String productId) {
+        return linkData.getMarket(productId);
     }
 }

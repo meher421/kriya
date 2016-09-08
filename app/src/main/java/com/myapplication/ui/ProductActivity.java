@@ -10,12 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.myapplication.R;
-import com.myapplication.admin.ui.AdminFragment;
+import com.myapplication.Utils.Logger;
 import com.myapplication.dto.IMarket;
 import com.myapplication.dto.MarketHelper;
-import com.myapplication.testdto.Product;
-import com.myapplication.testdto.downlink.DownlinkImpl;
-import com.myapplication.testdto.downlink.IDownLink;
 
 import java.util.ArrayList;
 
@@ -28,7 +25,7 @@ public class ProductActivity extends AppCompatActivity {
     private ViewPager mPager;
     private MyAdapter mAdapter;
     private Context mContext;
-    private ArrayList<Product> mProducts;
+    private ArrayList<String> mProducts;
     private IMarket market;
 
     private String TAG = "ProductActivity-123456";
@@ -41,26 +38,31 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.product_parent_layout);
+        setContentView(R.layout.product_activity_main);
         mPager = (ViewPager) findViewById(R.id.pager);
 
+        int position = getIntent().getExtras().getInt("position");
+
+        mProducts = MarketHelper.getInstance().getProducts();
+
+        Logger.i(TAG,"mProducts :"+mProducts.toString());
+
         market = MarketHelper.getInstance();
-        int productsCount = market.getProducts().size();
-//        mProducts = mDownLink.getProducts().;
+        int productsCount = mProducts.size();
 
-
-        mAdapter = new ProductActivity.MyAdapter(getSupportFragmentManager(),productsCount);
+        mAdapter = new ProductActivity.MyAdapter(getSupportFragmentManager(), productsCount);
+        mPager.setAdapter(mAdapter);
+        mPager.setCurrentItem(position);
 
 
     }
 
 
-
     public class MyAdapter extends FragmentStatePagerAdapter {
 
-        ArrayList<AdminFragment> fragments = new ArrayList<>();
+        ArrayList<ProductsFragment> fragments = new ArrayList<>();
 
-        public MyAdapter(FragmentManager fragmentManager,int size) {
+        public MyAdapter(FragmentManager fragmentManager, int size) {
             super(fragmentManager);
 
             init(size);
@@ -69,19 +71,19 @@ public class ProductActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             int size = mProducts.size();
-            return size > 0 ? size : 1;
+            return size;
         }
 
 
         @Override
-        public AdminFragment getItem(int position) {
+        public ProductsFragment getItem(int position) {
             return fragments.get(position);
         }
 
 
         public void init(int size) {
             for (int i = 0; i < size; i++) {
-                fragments.add(ProductsFragment.init(mProducts.get(i).getId()));
+                fragments.add(ProductsFragment.init(mProducts.get(i)));
             }
         }
     }

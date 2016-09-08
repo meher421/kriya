@@ -3,6 +3,7 @@ package com.myapplication.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,6 +71,10 @@ public class HomeFragment extends Fragment implements AdminActivity.OnClickAdapt
     @Override
     public void onClickAdapterItem(View view, int position) {
         Logger.i(TAG,"onClickAdapterItem : "+position);
+
+        Intent intent = new Intent(getActivity(),ProductActivity.class);
+        intent.putExtra("position",position);
+        startActivity(intent);
 
 
 

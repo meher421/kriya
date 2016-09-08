@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void startHomeFragment(){
-        getFragmentManager().beginTransaction().replace(R.id.frame,new HomeFragment(), "home").addToBackStack("home").commit();
+        getFragmentManager().beginTransaction().replace(R.id.frame,new HomeFragment(), "home").commit();
     }
 
     @Override
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new AdminTestFragment();
         }
 
-        getFragmentManager().beginTransaction().add(R.id.frame,fragment, item.getTitle().toString()).addToBackStack(item.getTitle().toString()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.frame,fragment, item.getTitle().toString()).commit();
         Logger.i(TAG, "adding fragment :" + item.getTitle().toString());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
